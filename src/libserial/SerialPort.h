@@ -87,26 +87,6 @@ namespace LibSerial
         virtual ~SerialPort() noexcept;
 
         /**
-         * @brief Copy constructor.
-         */
-        SerialPort(SerialPort& otherSerialPort) = default ;
-
-        /**
-         * @brief Move constructor.
-         */
-        SerialPort(SerialPort&& otherSerialPort) = default ;
-
-        /**
-         * @brief Copy assignment.
-         */
-        SerialPort& operator=(SerialPort& otherSerialPort) = default ;
-
-        /**
-         * @brief Move assignment.
-         */
-        SerialPort& operator=(SerialPort&& otherSerialPort) = default ;
-
-        /**
          * @brief Opens the serial port associated with the specified
          *        file name and the specified mode.
          * @param fileName The file name of the serial port.

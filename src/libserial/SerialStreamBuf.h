@@ -90,26 +90,6 @@ namespace LibSerial
         virtual ~SerialStreamBuf() ;
 
         /**
-         * @brief Copy constructor.
-         */
-        SerialStreamBuf(SerialStreamBuf& otherSerialStreamBuf) = default ;
-
-        /**
-         * @brief Move constructor.
-         */
-        SerialStreamBuf(SerialStreamBuf&& otherSerialStreamBuf) = default ;
-
-        /**
-         * @brief Copy assignment.
-         */
-        SerialStreamBuf& operator=(SerialStreamBuf& otherSerialStreamBuf) = default ;
-
-        /**
-         * @brief Move assignment.
-         */
-        SerialStreamBuf& operator=(SerialStreamBuf&& otherSerialStreamBuf) = default ;
-
-        /**
          * @brief Opens the serial port associated with the specified
          *        file name and the specified mode.
          * @param fileName The file name of the serial port.

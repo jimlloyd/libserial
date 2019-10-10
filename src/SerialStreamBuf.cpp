@@ -79,26 +79,6 @@ namespace LibSerial
                        const StopBits&      stopBits) ;
 
         /**
-         * @brief Copy construction is disallowed.
-         */
-        Implementation(const Implementation& otherImplementation) = delete ;
-
-        /**
-         * @brief Move construction is disallowed.
-         */
-        Implementation(const Implementation&& otherImplementation) = delete ;
-
-        /**
-         * @brief Copy assignment is disallowed.
-         */
-        Implementation& operator=(const Implementation& otherImplementation) = delete ;
-
-        /**
-         * @brief Move assignment is disallowed.
-         */
-        Implementation& operator=(const Implementation&& otherImplementation) = delete ;
-
-        /**
          * @brief Opens the serial port associated with the specified
          *        file name and the specified mode.
          * @param fileName The file name of the serial port.
