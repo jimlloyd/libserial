@@ -87,24 +87,24 @@ namespace LibSerial
         virtual ~SerialPort() noexcept;
 
         /**
-         * @brief Copy construction is disallowed.
+         * @brief Copy constructor.
          */
-        SerialPort(const SerialPort& otherSerialPort) = delete ;
+        SerialPort(SerialPort& otherSerialPort) = default ;
 
         /**
-         * @brief Move construction is disallowed.
+         * @brief Move constructor.
          */
-        SerialPort(const SerialPort&& otherSerialPort) = delete ;
+        SerialPort(SerialPort&& otherSerialPort) = default ;
 
         /**
-         * @brief Copy assignment is disallowed.
+         * @brief Copy assignment.
          */
-        SerialPort& operator=(const SerialPort& otherSerialPort) = delete ;
+        SerialPort& operator=(SerialPort& otherSerialPort) = default ;
 
         /**
-         * @brief Move assignment is disallowed.
+         * @brief Move assignment.
          */
-        SerialPort& operator=(const SerialPort&& otherSerialPort) = delete ;
+        SerialPort& operator=(SerialPort&& otherSerialPort) = default ;
 
         /**
          * @brief Opens the serial port associated with the specified

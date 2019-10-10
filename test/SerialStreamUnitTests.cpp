@@ -55,13 +55,44 @@ SerialStreamUnitTests::~SerialStreamUnitTests()
 void
 SerialStreamUnitTests::testSerialStreamConstructors()
 {
-    SerialStream serialStream3(SERIAL_PORT_1) ;
-    SerialStream serialStream4(SERIAL_PORT_2,
-                               BaudRate::BAUD_9600,
-                               CharacterSize::CHAR_SIZE_7,
-                               FlowControl::FLOW_CONTROL_HARDWARE,
-                               Parity::PARITY_EVEN,
-                               StopBits::STOP_BITS_2) ;
+    serialStream1.Open(SERIAL_PORT_1) ;
+    serialStream2.Open(SERIAL_PORT_2) ;
+
+    SerialStream serialStream3 = serialStream1 ;
+    SerialStream serialStream4 = serialStream2 ;
+
+    ASSERT_TRUE(serialStream1.IsOpen()) ;
+    ASSERT_TRUE(serialStream2.IsOpen()) ;
+    ASSERT_TRUE(serialStream3.IsOpen()) ;
+    ASSERT_TRUE(serialStream4.IsOpen()) ;
+    
+    serialStream3.Close() ;
+    serialStream4.Close() ;
+
+    ASSERT_FALSE(serialStream1.IsOpen()) ;
+    ASSERT_FALSE(serialStream2.IsOpen()) ;
+
+    serialStream1.Open(SERIAL_PORT_1) ;
+    serialStream2.Open(SERIAL_PORT_2) ;
+
+    SerialStream serialStream3(serialStream1) ;
+    SerialStream serialStream4(serialStream2) ;
+
+    ASSERT_TRUE(serialStream1.IsOpen()) ;
+    ASSERT_TRUE(serialStream2.IsOpen()) ;
+    ASSERT_TRUE(serialStream3.IsOpen()) ;
+    ASSERT_TRUE(serialStream4.IsOpen()) ;
+    
+    serialStream3.Close() ;
+    serialStream4.Close() ;
+
+    serialStream3(SERIAL_PORT_1) ;
+    serialStream4(SERIAL_PORT_2,
+                  BaudRate::BAUD_9600,
+                  CharacterSize::CHAR_SIZE_7,
+                  FlowControl::FLOW_CONTROL_HARDWARE,
+                  Parity::PARITY_EVEN,
+                  StopBits::STOP_BITS_2) ;
 
     ASSERT_TRUE(serialStream3.IsOpen()) ;
     ASSERT_TRUE(serialStream4.IsOpen()) ;

@@ -113,26 +113,24 @@ namespace LibSerial
         virtual ~SerialStream() ;
 
         /**
-         * @brief Prevents copying of objects of this class by declaring the copy
-         *        constructor private. This method is never defined.
+         * @brief Copy constructor.
          */
-        SerialStream(const SerialStream& otherSerialStream) = delete;
+        SerialStream(SerialStream& otherSerialStream) = default;
 
         /**
-         * @brief Move construction is disallowed.
+         * @brief Move constructor.
          */
-        SerialStream(const SerialStream&& otherSerialStream) = delete;
+        SerialStream(SerialStream&& otherSerialStream) = default;
 
         /**
-         * @brief Prevents copying of objects of this class by declaring the
-         *        assignment operator private. This method is never defined.
+         * @brief Copy Assignment
          */
-        SerialStream& operator=(const SerialStream& otherSerialStream) = delete;
+        SerialStream& operator=(SerialStream& otherSerialStream) = default;
 
         /**
-         * @brief Move assignment is not allowed.
+         * @brief Move assignment.
          */
-        SerialStream& operator=(const SerialStream&& otherSerialStream) = delete;
+        SerialStream& operator=(SerialStream&& otherSerialStream) = default;
     
         /**
          * @brief Opens the serial port associated with the specified

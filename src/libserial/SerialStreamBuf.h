@@ -90,24 +90,24 @@ namespace LibSerial
         virtual ~SerialStreamBuf() ;
 
         /**
-         * @brief Copy construction is disallowed.
+         * @brief Copy constructor.
          */
-        SerialStreamBuf(const SerialStreamBuf& otherSerialStreamBuf) = delete ;
+        SerialStreamBuf(SerialStreamBuf& otherSerialStreamBuf) = default ;
 
         /**
-         * @brief Move construction is disallowed.
+         * @brief Move constructor.
          */
-        SerialStreamBuf(const SerialStreamBuf&& otherSerialStreamBuf) = delete ;
+        SerialStreamBuf(SerialStreamBuf&& otherSerialStreamBuf) = default ;
 
         /**
-         * @brief Copy assignment is disallowed.
+         * @brief Copy assignment.
          */
-        SerialStreamBuf& operator=(const SerialStreamBuf& otherSerialStreamBuf) = delete ;
+        SerialStreamBuf& operator=(SerialStreamBuf& otherSerialStreamBuf) = default ;
 
         /**
-         * @brief Move assignment is disallowed.
+         * @brief Move assignment.
          */
-        SerialStreamBuf& operator=(const SerialStreamBuf&& otherSerialStreamBuf) = delete ;
+        SerialStreamBuf& operator=(SerialStreamBuf&& otherSerialStreamBuf) = default ;
 
         /**
          * @brief Opens the serial port associated with the specified
