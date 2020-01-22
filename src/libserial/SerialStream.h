@@ -133,7 +133,7 @@ namespace LibSerial
          * @brief Move assignment is not allowed.
          */
         SerialStream& operator=(const SerialStream&& otherSerialStream) = delete;
-    
+
         /**
          * @brief Opens the serial port associated with the specified
          *        file name and the specified mode.
@@ -320,6 +320,7 @@ namespace LibSerial
          */
         int GetNumberOfBytesAvailable() ;
 
+#ifdef __linux__
         /**
          * @brief Gets a list of available serial ports.
          * @return Returns a std::vector of std::strings with the name of
@@ -328,10 +329,11 @@ namespace LibSerial
          * @todo Consider making this a static member function.
          */
         std::vector<std::string> GetAvailableSerialPorts() ;
+#endif
 
 
     protected:
-    
+
     private:
         /**
          * @brief The SerialStreamBuffer object that will be used by the

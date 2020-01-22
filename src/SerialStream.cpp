@@ -34,7 +34,7 @@
 
 #include <cassert>
 
-namespace LibSerial 
+namespace LibSerial
 {
     SerialStream::SerialStream() : std::iostream(nullptr)
     {
@@ -46,7 +46,7 @@ namespace LibSerial
                                const CharacterSize& characterSize,
                                const FlowControl&   flowControlType,
                                const Parity&        parityType,
-                               const StopBits&      stopBits) : 
+                               const StopBits&      stopBits) :
         std::iostream(nullptr)
     {
         this->Open(fileName) ;  // NOLINT (fuchsia-default-arguments)
@@ -58,8 +58,8 @@ namespace LibSerial
         this->FlushIOBuffers() ;
     }
 
-    SerialStream::~SerialStream() 
-    try 
+    SerialStream::~SerialStream()
+    try
     {
         // Close the serial stream if it is open.
         if (this->IsOpen())
@@ -67,8 +67,8 @@ namespace LibSerial
             this->FlushIOBuffers() ;
             this->Close() ;
         }
-    } 
-    catch(...) 
+    }
+    catch(...)
     {
         //
         // :IMPORTANT: We do not let any exceptions escape the destructor.
@@ -84,7 +84,7 @@ namespace LibSerial
                        const std::ios_base::openmode& openMode)
     try
     {
-        // Create a new SerialStreamBuf if one does not exist. 
+        // Create a new SerialStreamBuf if one does not exist.
         if (mIOBuffer == nullptr)
         {
             mIOBuffer = std::make_unique<SerialStreamBuf>() ;
@@ -92,7 +92,7 @@ namespace LibSerial
             this->rdbuf(mIOBuffer.get()) ;
         }
 
-        // Open the serial port. 
+        // Open the serial port.
         mIOBuffer->Open(fileName, openMode) ;
     }
     catch (const std::exception&)
@@ -275,7 +275,7 @@ namespace LibSerial
         throw ;
     }
 
-    void 
+    void
     SerialStream::SetBaudRate(const BaudRate& baudRate)
     try
     {
@@ -284,13 +284,13 @@ namespace LibSerial
         // Make sure that we are dealing with a SerialStreamBuf before
         // proceeding. This check also makes sure that we have a non-NULL
         // buffer associated with this stream.
-        if (my_buffer != nullptr) 
+        if (my_buffer != nullptr)
         {
             // Try to set the baud rate with the corresponding function of
             // the SerialStreamBuf class.
             my_buffer->SetBaudRate(baudRate) ;
-        } 
-        else 
+        }
+        else
         {
             // If the dynamic_cast above failed then we either have a NULL
             // streambuf associated with this stream or we have a buffer
@@ -314,13 +314,13 @@ namespace LibSerial
         // Make sure that we are dealing with a SerialStreamBuf before
         // proceeding. This check also makes sure that we have a non-NULL
         // buffer associated with this stream.
-        if (my_buffer != nullptr) 
+        if (my_buffer != nullptr)
         {
             // Try to get the baud rate. If the corresponding function of the
             // SerialStreamBuf class returns BAUD_INVALID, then we have a
             // problem and the stream is no longer valid for I/O.
             return my_buffer->GetBaudRate() ;
-        } 
+        }
         // If the dynamic_cast above failed then we either have a NULL
         // streambuf associated with this stream or we have a buffer of
         // class other than SerialStreamBuf. In either case, we have a
@@ -343,13 +343,13 @@ namespace LibSerial
         // Make sure that we are dealing with a SerialStreamBuf before
         // proceeding. This check also makes sure that we have a non-NULL
         // buffer associated with this stream.
-        if (my_buffer != nullptr) 
+        if (my_buffer != nullptr)
         {
             // Try to set the character size with the corresponding function of
             // the SerialStreamBuf class.
             my_buffer->SetCharacterSize(characterSize) ;
-        } 
-        else 
+        }
+        else
         {
             // If the dynamic_cast above failed then we either have a NULL
             // streambuf associated with this stream or we have a buffer of
@@ -373,13 +373,13 @@ namespace LibSerial
         // Make sure that we are dealing with a SerialStreamBuf before
         // proceeding. This check also makes sure that we have a non-NULL
         // buffer associated with this stream.
-        if (my_buffer != nullptr) 
+        if (my_buffer != nullptr)
         {
             // Try to get the character size. If the corresponding function of the
             // SerialStreamBuf class returns CHAR_SIZE_INVALID, then we have a
             // problem and the stream is no longer valid for I/O.
             return my_buffer->GetCharacterSize() ;
-        } 
+        }
         // If the dynamic_cast above failed then we either have a NULL
         // streambuf associated with this stream or we have a buffer of
         // class other than SerialStreamBuf. In either case, we have a
@@ -906,17 +906,18 @@ namespace LibSerial
         throw ;
     }
 
+#ifdef __linux__
     std::vector<std::string>
     SerialStream::GetAvailableSerialPorts()
     try
-    {   
+    {
         auto my_buffer = dynamic_cast<SerialStreamBuf *>(this->rdbuf()) ;
 
         // Make sure that we are dealing with a SerialStreamBuf before
         // proceeding. This check also makes sure that we have a non-NULL
         // buffer associated with this stream.
         if (my_buffer != nullptr)
-        {     
+        {
             // Try to get the file descriptor.
             return my_buffer->GetAvailableSerialPorts() ;
         }
@@ -932,4 +933,5 @@ namespace LibSerial
         setstate(std::ios_base::failbit) ;
         throw ;
     }
+#endif
 } // namespace LibSerial
