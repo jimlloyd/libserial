@@ -37,9 +37,13 @@
 #include <cassert>
 #include <cstring>
 #include <fcntl.h>
-#include <linux/serial.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
+
+#ifdef __linux__
+// we may not even need this
+#include <linux/serial.h>
+#endif
 
 namespace LibSerial
 {
@@ -659,7 +663,7 @@ namespace LibSerial
                                                     const Parity&        parityType,
                                                     const StopBits&      stopBits)
     try : mSerialPort(fileName,
-                      baudRate, 
+                      baudRate,
                       characterSize,
                       flowControlType,
                       parityType,
@@ -674,15 +678,15 @@ namespace LibSerial
 
     inline
     SerialStreamBuf::Implementation::~Implementation()
-    try 
+    try
     {
         // Close the serial port if it is open.
         if (IsOpen())
         {
             Close() ;
         }
-    } 
-    catch(...) 
+    }
+    catch(...)
     {
         //
         // :IMPORTANT: We do not let any exceptions escape the destructor.
@@ -699,7 +703,7 @@ namespace LibSerial
                                           const std::ios_base::openmode& openMode)
     try
     {
-        mSerialPort.Open(fileName, 
+        mSerialPort.Open(fileName,
                          openMode) ;
 
         // @note - Stream communications need to happen in blocking mode.
@@ -762,7 +766,7 @@ namespace LibSerial
 
     inline
     bool
-    SerialStreamBuf::Implementation::IsDataAvailable() 
+    SerialStreamBuf::Implementation::IsDataAvailable()
     {
         return mSerialPort.IsDataAvailable() ;
     }
@@ -902,7 +906,7 @@ namespace LibSerial
 
     inline
     bool
-    SerialStreamBuf::Implementation::GetCTS() 
+    SerialStreamBuf::Implementation::GetCTS()
     {
         return mSerialPort.GetCTS() ;
     }
@@ -955,7 +959,7 @@ namespace LibSerial
         }
 
         // Write the n characters to the serial port.
-        // 
+        //
         // :TODO: Consider using mSerialPort.Write() here instead of writing
         //        to the file descriptor directly.
         const auto fd = mSerialPort.GetFileDescriptor() ;
@@ -1012,7 +1016,7 @@ namespace LibSerial
             // at location starting from &character[1].
             if (numberOfBytes > 1)
             {
-                // 
+                //
                 // :TODO: Consider using mSerialPort.Read() here instead of
                 // using the file descriptor.
                 //
@@ -1032,7 +1036,7 @@ namespace LibSerial
         {
             // If no putback character is available then we try to
             // read numberOfBytes characters.
-            // 
+            //
             // :TODO: Consider using mSerialPort.Read() here instead of
             //        using the file descriptor.
             const auto fd = mSerialPort.GetFileDescriptor() ;
@@ -1070,7 +1074,7 @@ namespace LibSerial
         }
 
         // Otherwise we write the character to the serial port.
-        // 
+        //
         // :TODO: Consider using a method of SerialPort class here instead
         //        of using the file descriptor.
         const auto fd = mSerialPort.GetFileDescriptor() ;
@@ -1112,7 +1116,7 @@ namespace LibSerial
         {
             // If no putback character is available then we need to read one
             // character from the serial port.
-            // 
+            //
             // :TODO: Consider using a method of SerialPort class here instead
             // of using the file descriptor.
             //
@@ -1205,7 +1209,7 @@ namespace LibSerial
         ssize_t number_of_bytes_available = 0 ;
 
         // NOLINTNEXTLINE (cppcoreguidelines-pro-type-vararg)
-        // 
+        //
         // :TODO: Consider using a method of SerialPort class here instead
         //        of using the file descriptor.
         const auto fd = mSerialPort.GetFileDescriptor() ;
