@@ -2090,10 +2090,6 @@ namespace LibSerial
             throw std::runtime_error(std::strerror(errno)) ;
         }
 
-        // @NOTE - termios.c_line is not a standard element of the termios
-        // structure, (as per the Single Unix Specification 3).
-        port_settings.c_line = '\0' ;
-
         // Apply the modified settings.
         if (tcsetattr(this->mFileDescriptor,
                       TCSANOW,
